@@ -20,6 +20,10 @@
         "2015-08-19": [
           { 0: {"yo1": 1100}, 1: {"hello1": 210}, 2: {"xc": 200}},
           { 0: {"hi1": 101}, 1: {"hey1": 11}, 2: {"ds": 10}}  
+        ],
+        "2015-08-21": [
+          { 0: {"yo1": 1100}, 1: {"hello1": 210}, 2: {"xc": 200}},
+          { 0: {"hi1": 101}, 1: {"hey1": 11}, 2: {"ds": 10}}  
         ]
       }
     
@@ -65,6 +69,7 @@
             var d = {};
             d.id = date;
             d.order = i;
+            // generate a random color
             d.color = '#' + (function co(lor){   return (lor +=
                               [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
                               && (lor.length == 6) ?  lor : co(lor); })('');
@@ -121,7 +126,6 @@
       }  
     
       display_chart(results);
-
 
     </script>
   </body>

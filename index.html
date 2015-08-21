@@ -61,6 +61,7 @@
     
       var data = [];
       var i = 1;
+      var total_count = 0;
       _.keys(results).forEach(function(date) {
         var d = {};
         d.id = date;
@@ -71,7 +72,9 @@
         var count = 0;
         var steps = [];
         _.each(results[date], function(r) {
-          if (_.values(r[2])[0] > count) {
+          var last_step_count = _.values(r[2])[0];
+          total_count += last_step_count;
+          if (last_step_count > count) {
             count = _.values(r[2])[0];
             steps.push(_.keys(r[0])[0]);
             steps.push(_.keys(r[1])[0]);
@@ -117,14 +120,7 @@
     
     
       // calculate the weighted mean score
-      var score = 
-        data.reduce(function(a, b) {
-          //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-          return a + (b.score * b.weight); 
-        }, 0) / 
-        data.reduce(function(a, b) { 
-          return a + b.weight; 
-        }, 0);
+      var score = total_count;
     
       svg.append("svg:text")
         .attr("class", "aster-score")

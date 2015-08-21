@@ -65,6 +65,7 @@
           var data = [];
           var i = 1;
           var total_count = 0;
+          var max_count = 0;
           _.keys(results).forEach(function(date) {
             var d = {};
             d.id = date;
@@ -73,8 +74,7 @@
             d.color = '#' + (function co(lor){   return (lor +=
                               [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
                               && (lor.length == 6) ?  lor : co(lor); })('');
-            d.weight = 1;
-            
+
             var count = 0;
             var steps = [];
             _.each(results[date], function(r) {
@@ -86,20 +86,22 @@
                 steps.push(_.keys(r[1])[0]);
                 steps.push(_.keys(r[2])[0]);
               }
+              if (last_step_count > max_count) {
+                max_count = last_step_count;
+              }
             });
             
             d.score = count;
-            d.width = d.weight;
-            d.label = steps[0] + steps[1] + steps[2];
+            d.label = steps[0] + ',' + steps[1] + ',' + steps[2];
              
             i += 1;
             data.push(d);
           });
 
           _.each(data, function(d) {
-            d.score = Math.round(d.score/total_count * 100);
+            d.width = d.score/total_count;
+            d.score = Math.round(d.score/max_count * 100);
           });
-          
 
           var path = svg.selectAll(".solidArc")
               .data(pie(data))
@@ -119,8 +121,6 @@
               .attr("class", "outlineArc")
               .attr("d", outlineArc);  
         
-        
-          // calculate the weighted mean score
           var score = total_count;
         
           svg.append("svg:text")

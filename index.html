@@ -96,6 +96,11 @@
             data.push(d);
           });
 
+          _.each(data, function(d) {
+            d.score = Math.round(d.score/total_count * 100);
+          });
+          
+
           var path = svg.selectAll(".solidArc")
               .data(pie(data))
             .enter().append("path")

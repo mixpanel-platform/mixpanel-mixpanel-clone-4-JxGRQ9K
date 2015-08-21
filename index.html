@@ -41,7 +41,7 @@
             .attr('class', 'd3-tip')
             .offset([0, 0])
             .html(function(d) {
-              return d.data.label + ": <span style='color:orangered'>" + "conversion rate(" d.data.score + "%) funnel finished(" + d.data.count + ")" + "</span>";
+              return d.data.label + ": <span style='color:orangered'>" + "conversion rate(" + d.data.score + "%) funnel finished(" + d.data.count + ")" + "</span>";
             });
       
           var arc = d3.svg.arc()

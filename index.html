@@ -60,7 +60,7 @@
     d3.csv('aster_data.csv', function(error, data) {
     
       var data = [];
-      var i = 0;
+      var i = 1;
       _.keys(results).forEach(function(date) {
         var d = {};
         d.id = date;
@@ -71,7 +71,8 @@
         var count = 0;
         var steps = [];
         _.each(results[date], function(r) {
-          if (r[2] > count) {
+          if (_.values(r[2])[0] > count) {
+            count = _.values(r[2])[0];
             steps.push(_.keys(r[0])[0]);
             steps.push(_.keys(r[1])[0]);
             steps.push(_.keys(r[2])[0]);

@@ -12,14 +12,14 @@
   <body class="mixpanel-platform-body">
     <h1>Hello, World!</h1>
     <script>
-      results = {
+      var results = {
         "2015-08-20": [
-          { 0: {"yo": 100}, 1: {"hello": 20}},
-          { 0: {"hi": 10}, 1: {"hey": 1}}
+          { 0: {"yo": 100}, 1: {"hello": 20}, 2: {"asd": 10}},
+          { 0: {"hi": 10}, 1: {"hey": 1}, 2: {"dsa": 1}}
         ],
         "2015-08-19": [
-          { 0: {"yo1": 1100}, 1: {"hello1": 210}},
-          { 0: {"hi1": 101}, 1: {"hey1": 11}}  
+          { 0: {"yo1": 1100}, 1: {"hello1": 210}, 2: {"xc": 200}},
+          { 0: {"hi1": 101}, 1: {"hey1": 11}, 2: {"ds": 10}}  
         ]
       }
       
@@ -59,15 +59,41 @@
     
     d3.csv('aster_data.csv', function(error, data) {
     
-      data.forEach(function(d) {
-        d.id     =  d.id;
-        d.order  = d.order;
-        d.color  =  d.color;
-        d.weight = d.weight;
-        d.score  = d.score;
-        d.width  = d.weight;
-        d.label  =  d.label;
-      });
+      var data = [];
+      var i = 0;
+      _.keys(results).forEach(function(date)) {
+        var d = {};
+        d.id = date;
+        d.order = i;
+        d.color = "#9E0041";
+        d.weight = 1;
+        
+        var count = 0;
+        var steps = [];
+        _.each(results[date], function(r) {
+          if (r[2] > count) {
+            steps.push(_.keys(r[0])[0]);
+            steps.push(_.keys(r[1])[0]);
+            steps.push(_.keys(r[2])[0]);
+          }
+        });
+        
+        d.score = count;
+        d.width = d.weight;
+        d.label = steps[0] + steps[1] + steps[2];
+         
+        i += 1;
+        data.push(d);
+      }
+      // data.forEach(function(d) {
+      //   d.id     =  d.id;
+      //   d.order  = d.order;
+      //   d.color  =  d.color;
+      //   d.weight = d.weight;
+      //   d.score  = d.score;
+      //   d.width  = d.weight;
+      //   d.label  =  d.label;
+      // });
       // for (var i = 0; i < data.score; i++) { console.log(data[i].id) }
       
       var path = svg.selectAll(".solidArc")
@@ -82,7 +108,7 @@
     
       var outerPath = svg.selectAll(".outlineArc")
           .data(pie(data))
-        .enter().append("path")
+          .enter().append("path")
           .attr("fill", "none")
           .attr("stroke", "gray")
           .attr("class", "outlineArc")

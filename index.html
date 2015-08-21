@@ -101,7 +101,7 @@
 
           _.each(data, function(d) {
             d.width = d.score/total_count;
-            d.score = Math.round(d.conversion_rate * 100) + "%";
+            d.score = Math.round(d.conversion_rate * 100);
           });
 
           var path = svg.selectAll(".solidArc")
@@ -128,7 +128,7 @@
             .attr("class", "aster-score")
             .attr("dy", ".35em")
             .attr("text-anchor", "middle") // text-align: right
-            .text(score);
+            .text(Math.round(score));
       }  
     
       display_chart(results);

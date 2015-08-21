@@ -84,8 +84,8 @@
                 count = _.values(r[2])[0];
                 steps.push(_.keys(r[0])[0]);
                 steps.push(_.keys(r[1])[0]);
-                steps.push(last_step_count);
-                d.conversion_rate = last_step_count / _.keys(r[0])[0];
+                steps.push(_.keys(r[2])[0]);
+                d.conversion_rate = last_step_count / _.values(r[0])[0];
               }
               if (last_step_count > max_count) {
                 max_count = last_step_count;

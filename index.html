@@ -61,7 +61,7 @@
     
       var data = [];
       var i = 0;
-      _.keys(results).forEach(function(date)) {
+      _.keys(results).forEach(function(date) {
         var d = {};
         d.id = date;
         d.order = i;
@@ -84,7 +84,7 @@
          
         i += 1;
         data.push(d);
-      }
+      });
       // data.forEach(function(d) {
       //   d.id     =  d.id;
       //   d.order  = d.order;
